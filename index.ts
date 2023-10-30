@@ -1,24 +1,17 @@
 import express from "express";
-import booksRouter from "./routes/books";
-import logger from "./middleware/logger";
-import notFound from "./middleware/not-found";
 import { config } from "dotenv";
-config();
+config(); //load all the values from .env
 import filmsRouter from "./routes/films";
 
 const app = express();
 
-//const for the PORT number
-const PORT = 8080;
+//add an express middleware that uses JSON.parse(body)
+app.use(express.json());
 
-app.use(logger);
-app.use("/api/v1/books", booksRouter);
-app.use("/api/v1/films", filmsRouter);
-app.use(notFound);
+app.use("/api/v1/movies", filmsRouter);
 
+const PORT = process.env.EXPRESS_PORT;
 
-// app listen on port, callback that runs when the app is running
 app.listen(PORT, () => {
-  //once the app is running, log the server url.
-  console.log(`Server is running on: http://localhost:${PORT}`);
+  console.log(`App is running on http://localhost:${PORT}`);
 });

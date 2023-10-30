@@ -1,22 +1,53 @@
 import { Router } from "express";
-import mysql2 from "mysql2";
 
-const connection = mysql2.createConnection({
-  host: process.env.DATABASE_HOST,
-  database: process.env.DATABASE_NAME,
-  password: process.env.DATABASE_PASSWORD,
-  user: process.env.DATABASE_USER,
-  port: Number(process.env.DATABASE_PORT),
-});
-
-// use the Router function to build a router object
+import connection from "../db/connection";
 const router = Router();
 
+//http://localhost:8080/api/v1/movies/
 router.get("/", (req, res) => {
-  connection.query("SELECT * FROM film", (err, dbRes) => {
-    res.json(dbRes);
+  connection.query("SELECT * FROM film", (dbErr, dbRes) => {
+    if (dbErr) {
+      return res.json(dbErr);
+    }
+    return res.json(dbRes);
   });
-  //res.json({ books: [] });
+});
+
+//http://localhost:8080/api/v1/movies/minmax?min=100&max=102
+router.get("/minmax", (req, res) => {
+  const min = req.query.min;
+  const max = req.query.max;
+
+  connection.query(
+    "SELECT * FROM film WHERE film_id between ? AND ?",
+    [min, max],
+    (dbErr, dbRes) => {
+      if (dbErr) {
+        return res.json(dbErr);
+      }
+      return res.json(dbRes);
+    }
+  );
+});
+
+//http://localhost:8080/api/v1/movies/123
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+
+  connection.query(
+    "SELECT * FROM film WHERE film_id = ?",
+    [id],
+    (dbErr, dbRes) => {
+      if (dbErr) {
+        return res.json(dbErr);
+      }
+      return res.json(dbRes);
+    }
+  );
+});
+
+router.post("/", (req, res) => {
+  return res.json(req.body);
 });
 
 export default router;

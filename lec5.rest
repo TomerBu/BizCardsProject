@@ -1,2 +1,17 @@
 ### Get /api/v1/movies
-GET http://localhost:8080/api/v1/films
+GET http://localhost:8080/api/v1/movies
+
+
+### POST a film:
+POST http://localhost:8080/api/v1/movies
+Content-Type: application/json
+
+{
+  "title": "The Godfather",
+  "description": "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+  "release_year": 1972,
+  "language_id": 1,
+  "rental_duration": 3,
+  "rental_rate": 4.99,
+  "length": 175
+}
