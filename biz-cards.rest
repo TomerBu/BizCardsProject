@@ -1,1 +1,27 @@
 ### Post a user:
+POST http://localhost:8080/api/v1/users
+Content-Type: application/json
+
+{
+  "name": {
+    "first": "Ell",
+    "middle": "",
+    "last": "Vis"
+  },
+  "phone": "0512345567",
+  "email": "ellvis@email.com",
+  "password": "Abc!123Abc",
+  "image": {
+    "url": "",
+    "alt": ""
+  },
+  "address": {
+    "state": "IL",
+    "country": "Israel",
+    "city": "Arad",
+    "street": "Shoham",
+    "houseNumber": 5,
+    "zip": 8920435
+  },
+  "isBusiness": true
+}

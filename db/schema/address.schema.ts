@@ -13,10 +13,11 @@ export const addressSchema = new Schema<IAddress>({
     maxlength: 50,
   },
   houseNumber: {
-    type: String,
+    type: Number,
     required: true,
     maxlength: 4,
   },
+  zip: { type: Number, default: 0, required: false },
   state: {
     type: String,
     required: false,
