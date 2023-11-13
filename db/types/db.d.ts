@@ -33,22 +33,28 @@ export type IUser = {
   password: string;
   image: IImage;
   address: IAddress;
+  isAdmin?: boolean;
 };
 
-  export type ICardInput = {
-    title: string;
-    subtitle: string;
-    description: string;
-    phone: string;
-    email: string;
-    web: string;
-    image: IImage;
-    address: IAddress;
-  };
+export type ICardInput = {
+  title: string;
+  subtitle: string;
+  description: string;
+  phone: string;
+  email: string;
+  web: string;
+  image: IImage;
+  address: IAddress;
+};
 
 export type ICard = ICardInput & {
   bizNumber: number;
   likes: string[];
   user_id: mongoose.Types.ObjectId;
   createdAt: Date;
+};
+
+export type ILogin = {
+  email: string;
+  password: string;
 };

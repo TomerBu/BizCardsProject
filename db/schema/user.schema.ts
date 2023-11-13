@@ -21,6 +21,7 @@ export const userSchema = new Schema<IUser>({
     },
   },
   email: {
+    unique: true,
     type: String,
     required: true,
     maxlength: 100,
@@ -40,4 +41,11 @@ export const userSchema = new Schema<IUser>({
     required: true,
     maxlength: 100,
   },
+  isAdmin: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
 });
+
+//IUser{isAdmin?: boolean}
