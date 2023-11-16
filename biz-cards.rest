@@ -28,6 +28,8 @@ POST http://localhost:8080/api/v1/users/login
 Content-Type: application/json
 
 {
-  "email": "ellvis@email.com",
+  "email": "e1llvis@email.com"
   "password": "Abc!123Abc"
 }
+
+ 

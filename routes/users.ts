@@ -5,6 +5,7 @@ import { userService } from "../service/user.service";
 import { User } from "../db/model/user.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { func } from "joi";
 
 const router = Router();
 
@@ -23,23 +24,16 @@ router.post("/", validateUser, async (req, res, next) => {
 
 //Login:
 router.post("/login", validateLogin, async (req, res, next) => {
-  const { email, password } = req.body as ILogin;
-
-  //find the user from the database by email
-  const user = await User.findOne({ email });
-
-  if (!user) {
-    return res.status(401).json({ message: "Email or password dont match" });
+  try {
+    const { email, password } = req.body as ILogin;
+  const token = await userService.login(email, password);
+    return res.status(200).json({ token });
+  } catch (e) {
+    next(e);
   }
-  //use bcrypt to check the password
-  const matches = await bcrypt.compare(password, user.password);
-
-  const token = jwt.sign({email, id: user._id, isAdmin: user.isAdmin}, "secret");
-
-  if (!matches)
-    return res.status(401).json({ message: "Email or password dont match" });
-
-  return res.json({ token: token });
 });
 
 export default router;
+
+//try{const token = service.login(req.body);  res.status(200).json({token: token})}
+//catch(e){res.status(401).json({message: ""})}
