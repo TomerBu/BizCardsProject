@@ -1,11 +1,9 @@
 import { Router } from "express";
+import { User } from "../db/model/user.model";
 import { ILogin, IUser } from "../db/types/db";
 import { validateLogin, validateUser } from "../middleware/validate-schema";
+import { verifyAdmin } from "../middleware/verify-admin";
 import { userService } from "../service/user.service";
-import { User } from "../db/model/user.model";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import { func } from "joi";
 
 const router = Router();
 
@@ -26,11 +24,18 @@ router.post("/", validateUser, async (req, res, next) => {
 router.post("/login", validateLogin, async (req, res, next) => {
   try {
     const { email, password } = req.body as ILogin;
-  const token = await userService.login(email, password);
+    const token = await userService.login(email, password);
     return res.status(200).json({ token });
   } catch (e) {
     next(e);
   }
+});
+
+//Get all users
+router.get("/", verifyAdmin, async (req, res, next) => {
+  
+  const users = await User.find();
+  res.json(users);
 });
 
 export default router;

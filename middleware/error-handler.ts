@@ -1,5 +1,6 @@
 import { ErrorRequestHandler } from "express";
 import { ApplicationError } from "../error/application-error";
+import Joi from "joi";
 
 export const errorHandler: ErrorRequestHandler = (e, req, res, next) => {
   // console.log(e.constructor.name);
@@ -9,7 +10,16 @@ export const errorHandler: ErrorRequestHandler = (e, req, res, next) => {
     return res.status(e.status).json({ message: e.message });
   }
 
-  //specific express: Bad JSON:
+  //Joi Validation Error
+  if (e instanceof Joi.ValidationError) {
+    const { message, details, _original } = e;
+
+    return res
+      .status(400)
+      .json({ message, details, "supplied_object": _original });
+  }
+
+  //express.json middleware: Bad JSON:
   if (e instanceof SyntaxError && "status" in e) {
     return res
       .status(e.status as number)

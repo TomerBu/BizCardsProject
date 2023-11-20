@@ -15,7 +15,7 @@ export const validateSchema: ValidateSchema =
       next();
     } catch (e) {
       //400 - bad request - validation failed
-      return res.status(400).json(e);
+      return next(e);
     }
   };
 
