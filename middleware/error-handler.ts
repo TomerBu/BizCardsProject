@@ -1,9 +1,9 @@
 import { ErrorRequestHandler } from "express";
 import { ApplicationError } from "../error/application-error";
 import Joi from "joi";
+import { CastError } from "mongoose";
 
 export const errorHandler: ErrorRequestHandler = (e, req, res, next) => {
-  // console.log(e.constructor.name);
 
   //specific to our app :
   if (e instanceof ApplicationError) {
@@ -16,14 +16,19 @@ export const errorHandler: ErrorRequestHandler = (e, req, res, next) => {
 
     return res
       .status(400)
-      .json({ message, details, "supplied_object": _original });
+      .json({ message, details, supplied_object: _original });
+  }
+
+  // check if err is CastError
+  const err = e as CastError;
+  if (err && "name" in err && err.name == "CastError") {
+    return res.status(400).json({ message: "Cast Error", err });
   }
 
   //express.json middleware: Bad JSON:
   if (e instanceof SyntaxError && "status" in e) {
-    return res
-      .status(e.status as number)
-      .json({ message: e.message, name: e.name });
+    const status = e.status as number;
+    return res.status(status).json({ message: e.message, name: e.name });
   }
 
   // Catch-all:

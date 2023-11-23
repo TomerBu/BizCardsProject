@@ -1,6 +1,5 @@
-import { RequestHandler } from "express";
+import morgan from "morgan";
 
-export const logger: RequestHandler = (req, res, next) => {
-  console.log(req.method, req.url);
-  next();
-};
+const format = process.env.NODE_ENV == "prod" ? "tiny" : "dev";
+
+export const logger = morgan(format);

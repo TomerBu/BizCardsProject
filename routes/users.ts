@@ -4,7 +4,8 @@ import { ILogin, IUser } from "../db/types/db";
 import { validateLogin, validateUser } from "../middleware/validate-schema";
 import { verifyAdmin } from "../middleware/verify-admin";
 import { userService } from "../service/user.service";
-
+import { verifyUserOrAdmin } from "../middleware/verify-user-or-admin";
+  
 const router = Router();
 
 //Register
@@ -33,9 +34,23 @@ router.post("/login", validateLogin, async (req, res, next) => {
 
 //Get all users
 router.get("/", verifyAdmin, async (req, res, next) => {
-  
   const users = await User.find();
   res.json(users);
+});
+
+//Get user by id:
+router.get("/:id", verifyUserOrAdmin, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: `user with id: ${id} Not found` });
+    }
+    res.json(user);
+  } catch (e) {
+    next(e);
+  }
 });
 
 export default router;

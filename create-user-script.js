@@ -12,14 +12,14 @@ db.createUser(
 )
 
 
-use biz_cards
+use biz_cards_dev
 db.createUser(
     {
         user: "root",
         pwd: "123456",
         roles: [
-            { role: "readWrite", db: "biz_cards" },
-            { role: "dbAdmin", db: "biz_cards" }
+            { role: "readWrite", db: "biz_cards_dev" },
+            { role: "dbAdmin", db: "biz_cards_dev" }
         ]
     }
 )

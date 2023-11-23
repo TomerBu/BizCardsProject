@@ -23,7 +23,7 @@ Content-Type: application/json
 }
 
 
-### Login
+### Login as elvis (ADMIN):
 POST http://localhost:8080/api/v1/users/login
 Content-Type: application/json
 
@@ -32,9 +32,33 @@ Content-Type: application/json
   "password": "Abc!123Abc"
 }
 
+### Login as moe (USER):
+POST http://localhost:8080/api/v1/users/login
+Content-Type: application/json
+
+{
+  "email": "moe@email.com",
+  "password": "Abc!123Abc"
+}
+
  
 
 
 ### Get all users:
 GET http://localhost:8080/api/v1/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc0BlbWFpbC5jb20iLCJpZCI6IjY1NTI2MzdmZDczNTRkMWY0MWVlZDgyNSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDA1MDU1MjF9.wicKSOjA_hp_UVzbGJdPoX0vWGBkMoNKSWj3qC69wnM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc0BlbWFpbC5jb20iLCJpZCI6IjY1NWY3MGY3NGE0NTVmN2Q2ZmE0MGRhYiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwMDc1MzkzMn0.H-EJodqNhHINxHoPs3qzTW6-fOzkhVF3qi8SFeIeW6c
+
+
+
+### get user by id without token - 400:
+GET http://localhost:8080/api/v1/users/655f7e5e569a8efea2e5b649
+
+
+### get user by id with admin token - 200:
+GET http://localhost:8080/api/v1/users/655f7e5e569a8efea2e5b649
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc0BlbWFpbC5jb20iLCJpZCI6IjY1NWY3MGY3NGE0NTVmN2Q2ZmE0MGRhYiIsImlzQWRtaW4iOnRydWUsImlhdCI6MTcwMDc1Nzg1OH0.xndj28csFxeiMo-EQ6qz7JFEQngMfetvRl0uEAFednA
+
+
+### get user by id with an id of another user (not admin): 401 Unauthorized
+GET http://localhost:8080/api/v1/users/655f7e5e569a8efea2e5b649
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im90aGVyQGVtYWlsLmNvbSIsImlkIjoiNjU1ZjgzMTU1NjlhOGVmZWEyZTViNjU4IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcwMDc1ODMwNX0.CIQhkEprhpm_ipC8ageajWj2a_o_IPI5shaKTmhuFpg
