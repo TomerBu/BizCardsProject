@@ -107,3 +107,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc
 
 ### get all cards:
 GET http://localhost:8080/api/v1/cards
+
+### get my cards:
+GET http://localhost:8080/api/v1/cards/my-cards
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc0BlbWFpbC5jb20iLCJpZCI6IjY1NjQ1ZjkyZGRlODVmYWVhOWQzZTM4MCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDEwNzY4OTV9.XSHs3UIAgz3qTppwdVvs9Ldpq5AbvtLH-pUPOC_CtDg
