@@ -9,7 +9,7 @@ Content-Type: application/json
     "last": "Vis"
   },
   "phone": "0512345567",
-  "email": "ellvis@email.com",
+  "email": "moe@email.com",
   "password": "Abc!123Abc",
   "address": {
     "state": "IL",
@@ -62,3 +62,30 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc
 ### get user by id with an id of another user (not admin): 401 Unauthorized
 GET http://localhost:8080/api/v1/users/655f7e5e569a8efea2e5b649
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im90aGVyQGVtYWlsLmNvbSIsImlkIjoiNjU1ZjgzMTU1NjlhOGVmZWEyZTViNjU4IiwiaXNBZG1pbiI6ZmFsc2UsImlhdCI6MTcwMDc1ODMwNX0.CIQhkEprhpm_ipC8ageajWj2a_o_IPI5shaKTmhuFpg
+
+
+
+### update a user:
+PUT http://localhost:8080/api/v1/users/65645f92dde85faea9d3e380
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc0BlbWFpbC5jb20iLCJpZCI6IjY1NjQ1ZjkyZGRlODVmYWVhOWQzZTM4MCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDEwNzY4OTV9.XSHs3UIAgz3qTppwdVvs9Ldpq5AbvtLH-pUPOC_CtDg
+
+{
+  "name": {
+    "first": "Ell12345",
+    "middle": "abcd",
+    "last": "Vis"
+  },
+  "phone": "0512345567",
+  "email": "ellvis@email.com",
+  "password": "Abc!123Abc",
+  "address": {
+    "state": "IL",
+    "country": "Israel",
+    "city": "Arad",
+    "street": "Shoham",
+    "houseNumber": 5,
+    "zip": 8920435
+  },
+  "isBusiness": true
+}
