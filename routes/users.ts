@@ -1,12 +1,16 @@
 import { Router } from "express";
 import { User } from "../db/model/user.model";
-import { ILogin, IUser } from "../db/types/db";
-import { validateLogin, validateUser } from "../middleware/validate-schema";
+import { ILogin, IUser, IUserUpdate } from "../db/types/db";
+import {
+  validateLogin,
+  validateUser,
+  validateUserUpdate,
+} from "../middleware/validate-schema";
 import { verifyAdmin } from "../middleware/verify-admin";
 import { userService } from "../service/user.service";
 import { verifyUserOrAdmin } from "../middleware/verify-user-or-admin";
 import { verifyUser } from "../middleware/verify-user";
-  
+
 const router = Router();
 
 //Register
@@ -67,7 +71,7 @@ router.put("/:id", verifyUser, validateUser, async (req, res, next) => {
       Setting new: true, returns the document <b>after</b> update was applied
       */
     });
-    
+
     if (!updatedUser) {
       return res.status(404).json({ message: `user with id: ${id} Not found` });
     }
@@ -76,6 +80,25 @@ router.put("/:id", verifyUser, validateUser, async (req, res, next) => {
     next(e);
   }
 });
+
+//Patch user by id:
+router.patch("/:id", verifyUser, validateUserUpdate, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+    const body = req.body as IUserUpdate;
+
+    const updatedUser = await User.findByIdAndUpdate(id, body, {
+      new: true,
+    });
+    if (!updatedUser) {
+      return res.status(404).json({ message: `user with id: ${id} Not found` });
+    }
+    res.json(updatedUser);
+  } catch (e) {
+    next(e);
+  }
+});
+
 export default router;
 
 //try{const token = service.login(req.body);  res.status(200).json({token: token})}

@@ -1,3 +1,4 @@
+import { IUser } from "./db.d";
 import mongoose, { Date } from "mongoose";
 import { type } from "os";
 
@@ -57,4 +58,8 @@ export type ICard = ICardInput & {
 export type ILogin = {
   email: string;
   password: string;
+};
+
+export type IUserUpdate = {
+  isBusiness: boolean;
 };
