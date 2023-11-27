@@ -99,6 +99,20 @@ router.patch("/:id", verifyUser, validateUserUpdate, async (req, res, next) => {
   }
 });
 
+//Delete user by id:
+router.delete("/:id", verifyUserOrAdmin, async (req, res, next) => {
+  try {
+    const id = req.params.id;
+
+    const deletedUser = await User.findByIdAndDelete(id);
+    if (!deletedUser) {
+      return res.status(404).json({ message: `user with id: ${id} Not found` });
+    }
+    res.json(deletedUser);
+  } catch (e) {
+    next(e);
+  }
+});
 export default router;
 
 //try{const token = service.login(req.body);  res.status(200).json({token: token})}
