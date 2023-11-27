@@ -1,5 +1,6 @@
 import express from "express";
 import usersRouter from "./routes/users";
+import cardsRouter from "./routes/cards";
 import { logger } from "./middleware/logger";
 import { connect } from "./db/utils/connection";
 import { errorHandler } from "./middleware/error-handler";
@@ -22,6 +23,7 @@ app.use(logger);
 app.use(express.static("public"));
 
 app.use("/api/v1/users", usersRouter);
+app.use("/api/v1/cards", cardsRouter);
 
 app.use(errorHandler);
 
