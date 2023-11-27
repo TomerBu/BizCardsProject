@@ -110,4 +110,30 @@ GET http://localhost:8080/api/v1/cards
 
 ### get my cards:
 GET http://localhost:8080/api/v1/cards/my-cards
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVsbHZpc0BlbWFpbC5jb20iLCJpZCI6IjY1NjQ1ZjkyZGRlODVmYWVhOWQzZTM4MCIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDEwNzY4OTV9.XSHs3UIAgz3qTppwdVvs9Ldpq5AbvtLH-pUPOC_CtDg
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vZUBlbWFpbC5jb20iLCJpZCI6IjY1NjQ2Mjg4ZGViZGRlYzU3ZTU0ZWNiNSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDEwODI0ODN9.Aak2YpRf7JsjwfSkZXMdbR3bcXCCT2D2ZRKOOOGyXH4
+
+### post a card:
+POST http://localhost:8080/api/v1/cards
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vZUBlbWFpbC5jb20iLCJpZCI6IjY1NjQ2Mjg4ZGViZGRlYzU3ZTU0ZWNiNSIsImlzQWRtaW4iOmZhbHNlLCJpYXQiOjE3MDEwODI0ODN9.Aak2YpRf7JsjwfSkZXMdbR3bcXCCT2D2ZRKOOOGyXH4
+
+{
+  "title": "John Doe",
+  "subtitle": "Software Engineer",
+  "description": "Experienced software engineer with a passion for developing innovative programs that expedite the efficiency and effectiveness of organizational success.",
+  "phone": "050-1234567",
+  "email": "moe@example.com",
+  "web": "http://www.johndoe.com",
+  "address": {
+    "street": "123 Main St",
+    "city": "San Francisco",
+    "state": "California",
+    "zip": "94101",
+    "country": "USA",
+    "houseNumber": "123"
+  },
+  "image": {
+    "url": "https://picsum.photos/200",
+    "alt": "John Doe"
+  }
+}
